@@ -39,12 +39,14 @@ sub isVowel {
 
 sub encodePigLatin {
 	my ($code) = @_;
+	#Split cipher input into char array and cycle through until vowel is reached.
 	my @chars = split(//,$code);
 	for(my $i = 0; $i < length $code; $i++) {
 		if(isVowel(@chars[$i])) {
+			#Clear and store letters upto vowel then append to end of output, adding "ay" to the very end
 			my $pigStr = substr($code,0,$i);
 			chomp(substr($code,0,$i) = "");
-
+			
 			return $code.$pigStr."ay";
 		}
 	}
@@ -55,6 +57,7 @@ say encodePigLatin($userInput);
 
 sub decodePigLatin {
 	my ($code) = @_;
+	#Clear "ay" and rearrange string
 	substr($code, -3) = "";
 
 	return chop($code).$code;
